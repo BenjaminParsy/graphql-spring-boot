@@ -1,6 +1,7 @@
 package com.benjamin.parsy.learningprojectgraphql.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.List;
@@ -18,10 +19,12 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstname")
+    @NotEmpty
+    @Column(name = "firstname", nullable = false)
     private String firstname;
 
-    @Column(name = "lastname")
+    @NotEmpty
+    @Column(name = "lastname", nullable = false)
     private String lastname;
 
     @ToString.Exclude

@@ -1,6 +1,8 @@
 package com.benjamin.parsy.learningprojectgraphql.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,20 +20,24 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title")
+    @NotEmpty
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "text")
+    @NotEmpty
+    @Column(name = "text", nullable = false)
     private String text;
 
     @Column(name = "category")
     private String category;
 
-    @Column(name = "created_date")
+    @NotNull
+    @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
 }

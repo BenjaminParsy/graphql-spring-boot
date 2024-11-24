@@ -1,5 +1,5 @@
-mutation {
-    createPost(title: "testTitle1", text: "testText1", category: "testCategory1", authorId: 2) {
+mutation createPost($title: String!, $text: String!, $category: String!, $authorId: Int!) {
+    createPost(title: $title, text: $text, category: $category, authorId: $authorId) {
         id
         title
         text
@@ -7,6 +7,7 @@ mutation {
         author {
             id
             firstname
+            lastname
         }
     }
 }

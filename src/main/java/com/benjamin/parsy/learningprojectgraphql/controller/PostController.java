@@ -9,6 +9,7 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,7 @@ public class PostController {
         post.setTitle(title);
         post.setText(text);
         post.setCategory(category);
+        post.setCreatedDate(LocalDateTime.now());
         post.setAuthor(optionalAuthor.get());
 
         postService.save(post);

@@ -1,5 +1,5 @@
-query {
-    recentPosts(count: 10, offset: 0) {
+query recentPosts($count: Int!, $offset: Int!) {
+    recentPosts(count: $count, offset: $offset) {
         id
         title
         text
