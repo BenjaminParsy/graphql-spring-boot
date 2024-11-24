@@ -1,0 +1,12 @@
+mutation {
+    createPost(title: "testTitle1", text: "testText1", category: "testCategory1", authorId: 2) {
+        id
+        title
+        text
+        category
+        author {
+            id
+            firstname
+        }
+    }
+}

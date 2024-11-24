@@ -24,6 +24,8 @@ public class Author {
     @Column(name = "lastname")
     private String lastname;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
