@@ -32,13 +32,19 @@ class PostControllerTest {
     void recentPostsTest() {
 
         Author author1 = DataHelper.createAuthor("John", "Smith", true);
-        Post post1 = DataHelper.createPost(author1, "title1", "text1", "category1", true);
+        Post post1 = DataHelper.createPost("title1", "text1", "category1", author1.getId(), true);
 
         Author author2 = DataHelper.createAuthor("Jane", "Doe", true);
-        Post post2 = DataHelper.createPost(author2, "title2", "text2", "category2", true);
+        Post post2 = DataHelper.createPost("title2", "text2", "category2", author2.getId(), true);
 
         Mockito.when(postService.getRecentPosts(Mockito.anyInt(), Mockito.anyInt()))
                 .thenReturn(List.of(post1, post2));
+
+        Mockito.when(authorService.findById(author1.getId()))
+                .thenReturn(Optional.of(author1));
+
+        Mockito.when(authorService.findById(author2.getId()))
+                .thenReturn(Optional.of(author2));
 
         Map<String, Object> variables = Map.of("count", 10,
                 "offset", 0);
@@ -59,7 +65,7 @@ class PostControllerTest {
 
         Author author1 = DataHelper.createAuthor("John", "Smith", true);
 
-        Mockito.when(authorService.findById(Mockito.anyLong()))
+        Mockito.when(authorService.findById(author1.getId()))
                 .thenReturn(Optional.of(author1));
 
         Mockito.when(postService.save(Mockito.any()))
@@ -72,7 +78,7 @@ class PostControllerTest {
         Map<String, Object> variables = Map.of("title", "testTitle1",
                 "text", "testText1",
                 "category", "testCategory1",
-                "authorId", 2);
+                "authorId", author1.getId());
 
         graphQlTester.documentName("create-post")
                 .variables(variables)

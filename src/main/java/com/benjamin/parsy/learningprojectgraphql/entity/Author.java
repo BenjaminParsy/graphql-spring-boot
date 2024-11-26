@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,10 +24,5 @@ public class Author {
     @NotEmpty
     @Column(name = "lastname", nullable = false)
     private String lastname;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "author")
-    private List<Post> posts;
 
 }

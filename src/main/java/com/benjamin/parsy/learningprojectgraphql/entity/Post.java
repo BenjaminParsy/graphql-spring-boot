@@ -36,8 +36,7 @@ public class Post {
     private LocalDateTime createdDate;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private Author author;
+    @JoinColumn(table = "author", referencedColumnName = "id", name = "author_id", nullable = false)
+    private Long authorId;
 
 }

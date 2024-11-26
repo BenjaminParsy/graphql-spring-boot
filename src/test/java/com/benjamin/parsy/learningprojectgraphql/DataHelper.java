@@ -3,10 +3,8 @@ package com.benjamin.parsy.learningprojectgraphql;
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
 import com.benjamin.parsy.learningprojectgraphql.entity.Post;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class DataHelper {
 
@@ -27,24 +25,18 @@ public class DataHelper {
         return author;
     }
 
-    public static Post createPost(Author author, String title, String text, String category, boolean fakeId) {
+    public static Post createPost(String title, String text, String category, Long authorId, boolean fakeId) {
 
         Post post = new Post();
-        post.setAuthor(author);
         post.setTitle(title);
         post.setText(text);
         post.setCategory(category);
         post.setCreatedDate(LocalDateTime.now());
+        post.setAuthorId(authorId);
 
         if (fakeId) {
             post.setId(Long.valueOf(RandomStringUtils.randomNumeric(4)));
         }
-
-        if (CollectionUtils.isEmpty(author.getPosts())) {
-            author.setPosts(new ArrayList<>());
-        }
-
-        author.getPosts().add(post);
 
         return post;
     }
