@@ -2,9 +2,9 @@ package com.benjamin.parsy.learningprojectgraphql.controller;
 
 import com.benjamin.parsy.learningprojectgraphql.DataHelper;
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
-import com.benjamin.parsy.learningprojectgraphql.entity.Post;
+import com.benjamin.parsy.learningprojectgraphql.entity.Book;
 import com.benjamin.parsy.learningprojectgraphql.service.AuthorService;
-import com.benjamin.parsy.learningprojectgraphql.service.PostService;
+import com.benjamin.parsy.learningprojectgraphql.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +17,28 @@ import java.util.Map;
 import java.util.Optional;
 
 @GraphQlTest
-class PostControllerTest {
+class BookControllerTest {
 
     @Autowired
     private GraphQlTester graphQlTester;
 
     @MockBean
-    private PostService postService;
+    private BookService bookService;
 
     @MockBean
     private AuthorService authorService;
 
     @Test
-    void recentPostsTest() {
+    void recentBooks() {
 
         Author author1 = DataHelper.createAuthor("John", "Smith", true);
-        Post post1 = DataHelper.createPost("title1", "text1", "category1", author1.getId(), true);
+        Book book1 = DataHelper.createBook("title1", "text1", "category1", author1.getId(), true);
 
         Author author2 = DataHelper.createAuthor("Jane", "Doe", true);
-        Post post2 = DataHelper.createPost("title2", "text2", "category2", author2.getId(), true);
+        Book book2 = DataHelper.createBook("title2", "text2", "category2", author2.getId(), true);
 
-        Mockito.when(postService.getRecentPosts(Mockito.anyInt(), Mockito.anyInt()))
-                .thenReturn(List.of(post1, post2));
+        Mockito.when(bookService.getRecentBooks(Mockito.anyInt(), Mockito.anyInt()))
+                .thenReturn(List.of(book1, book2));
 
         Mockito.when(authorService.findAllByIdIn(List.of(author1.getId(), author2.getId())))
                 .thenReturn(List.of(author1, author2));
@@ -46,19 +46,19 @@ class PostControllerTest {
         Map<String, Object> variables = Map.of("count", 10,
                 "offset", 0);
 
-        graphQlTester.documentName("recent-posts")
+        graphQlTester.documentName("book-test/recent-books")
                 .variables(variables)
                 .execute()
                 .errors()
                 .verify()
-                .path("recentPosts")
-                .entityList(Post.class)
+                .path("recentBooks")
+                .entityList(Book.class)
                 .hasSize(2);
 
     }
 
     @Test
-    void createPostTest() {
+    void createBook() {
 
         Author author1 = DataHelper.createAuthor("John", "Smith", true);
 
@@ -68,9 +68,9 @@ class PostControllerTest {
         Mockito.when(authorService.findAllByIdIn(List.of(author1.getId())))
                 .thenReturn(List.of(author1));
 
-        Mockito.when(postService.save(Mockito.any()))
+        Mockito.when(bookService.save(Mockito.any()))
                 .thenAnswer(invocation -> {
-                    Post savedEntity = invocation.getArgument(0);
+                    Book savedEntity = invocation.getArgument(0);
                     savedEntity.setId(1L);
                     return savedEntity;
                 });
@@ -80,13 +80,13 @@ class PostControllerTest {
                 "category", "testCategory1",
                 "authorId", author1.getId());
 
-        graphQlTester.documentName("create-post")
+        graphQlTester.documentName("book-test/create-book")
                 .variables(variables)
                 .execute()
                 .errors()
                 .verify()
-                .path("createPost")
-                .entity(Post.class);
+                .path("createBook")
+                .entity(Book.class);
 
     }
 

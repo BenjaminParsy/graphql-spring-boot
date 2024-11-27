@@ -1,9 +1,9 @@
 package com.benjamin.parsy.learningprojectgraphql.controller;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
-import com.benjamin.parsy.learningprojectgraphql.entity.Post;
+import com.benjamin.parsy.learningprojectgraphql.entity.Book;
 import com.benjamin.parsy.learningprojectgraphql.service.AuthorService;
-import com.benjamin.parsy.learningprojectgraphql.service.PostService;
+import com.benjamin.parsy.learningprojectgraphql.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
@@ -20,26 +20,26 @@ import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
-public class PostController {
+public class BookController {
 
-    private final PostService postService;
+    private final BookService bookService;
     private final AuthorService authorService;
 
-    public PostController(PostService postService, AuthorService authorService) {
-        this.postService = postService;
+    public BookController(BookService bookService, AuthorService authorService) {
+        this.bookService = bookService;
         this.authorService = authorService;
     }
 
     @QueryMapping
-    public List<Post> recentPosts(@Argument int count, @Argument int offset) {
-        return postService.getRecentPosts(count, offset);
+    public List<Book> recentBooks(@Argument int count, @Argument int offset) {
+        return bookService.getRecentBooks(count, offset);
     }
 
     @BatchMapping
-    public Map<Post, Author> author(List<Post> postList) {
+    public Map<Book, Author> author(List<Book> bookList) {
 
-        List<Long> authorIdList = postList.stream()
-                .map(Post::getAuthorId)
+        List<Long> authorIdList = bookList.stream()
+                .map(Book::getAuthorId)
                 .distinct()
                 .toList();
 
@@ -47,15 +47,15 @@ public class PostController {
                 .stream()
                 .collect(Collectors.toMap(Author::getId, Function.identity()));
 
-        return postList.stream()
+        return bookList.stream()
                 .collect(Collectors.toMap(
                         Function.identity(),
-                        post -> authorById.get(post.getAuthorId()), (a, b) -> b
+                        book -> authorById.get(book.getAuthorId()), (a, b) -> b
                 ));
     }
 
     @MutationMapping
-    public Post createPost(@Argument String title,
+    public Book createBook(@Argument String title,
                            @Argument String text,
                            @Argument String category,
                            @Argument Long authorId) throws NoSuchFieldException {
@@ -66,16 +66,16 @@ public class PostController {
             throw new NoSuchFieldException(String.format("Author not found for the id '%s'", authorId));
         }
 
-        Post post = new Post();
-        post.setTitle(title);
-        post.setText(text);
-        post.setCategory(category);
-        post.setCreatedDate(LocalDateTime.now());
-        post.setAuthorId(authorId);
+        Book book = new Book();
+        book.setTitle(title);
+        book.setText(text);
+        book.setCategory(category);
+        book.setCreatedDate(LocalDateTime.now());
+        book.setAuthorId(authorId);
 
-        postService.save(post);
+        bookService.save(book);
 
-        return post;
+        return book;
     }
 
 }

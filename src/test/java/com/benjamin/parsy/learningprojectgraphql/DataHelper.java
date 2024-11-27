@@ -1,7 +1,7 @@
 package com.benjamin.parsy.learningprojectgraphql;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
-import com.benjamin.parsy.learningprojectgraphql.entity.Post;
+import com.benjamin.parsy.learningprojectgraphql.entity.Book;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.LocalDateTime;
@@ -25,20 +25,20 @@ public class DataHelper {
         return author;
     }
 
-    public static Post createPost(String title, String text, String category, Long authorId, boolean fakeId) {
+    public static Book createBook(String title, String text, String category, Long authorId, boolean fakeId) {
 
-        Post post = new Post();
-        post.setTitle(title);
-        post.setText(text);
-        post.setCategory(category);
-        post.setCreatedDate(LocalDateTime.now());
-        post.setAuthorId(authorId);
+        Book book = new Book();
+        book.setTitle(title);
+        book.setText(text);
+        book.setCategory(category);
+        book.setCreatedDate(LocalDateTime.now());
+        book.setAuthorId(authorId);
 
         if (fakeId) {
-            post.setId(Long.valueOf(RandomStringUtils.randomNumeric(4)));
+            book.setId(Long.valueOf(RandomStringUtils.randomNumeric(4)));
         }
 
-        return post;
+        return book;
     }
 
 }

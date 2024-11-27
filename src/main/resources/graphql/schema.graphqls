@@ -1,7 +1,7 @@
 # ====================================================================
 # Types
 # ====================================================================
-type Post {
+type Book {
     id: ID!
     title: String!
     text: String!
@@ -13,23 +13,23 @@ type Author {
     id: ID!
     firstname: String!
     lastname: String!
-    posts: [Post]!
+    books: [Book]!
 }
 
 # ====================================================================
 # Mutations
 # ====================================================================
 type Mutation {
-    # Posts ---------------------------------------------------
-    createPost(title: String!, text: String!, category: String, authorId: Int!) : Post
+    # Books ---------------------------------------------------
+    createBook(title: String!, text: String!, category: String, authorId: Int!) : Book
 }
 
 # ====================================================================
 # Queries
 # ====================================================================
 type Query {
-    # Posts ---------------------------------------------------
-    recentPosts(count: Int, offset: Int): [Post]!
+    # Books ---------------------------------------------------
+    recentBooks(count: Int, offset: Int): [Book]!
 
     # Authors -------------------------------------------------
     getAuthors: [Author]

@@ -1,9 +1,9 @@
 package com.benjamin.parsy.learningprojectgraphql.controller;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
-import com.benjamin.parsy.learningprojectgraphql.entity.Post;
+import com.benjamin.parsy.learningprojectgraphql.entity.Book;
 import com.benjamin.parsy.learningprojectgraphql.service.AuthorService;
-import com.benjamin.parsy.learningprojectgraphql.service.PostService;
+import com.benjamin.parsy.learningprojectgraphql.service.BookService;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 public class AuthorController {
 
     private final AuthorService authorService;
-    private final PostService postService;
+    private final BookService bookService;
 
-    public AuthorController(AuthorService authorService, PostService postService) {
+    public AuthorController(AuthorService authorService, BookService bookService) {
         this.authorService = authorService;
-        this.postService = postService;
+        this.bookService = bookService;
     }
 
     @QueryMapping
@@ -32,22 +32,22 @@ public class AuthorController {
     }
 
     @BatchMapping
-    public Map<Author, List<Post>> posts(List<Author> authorList) {
+    public Map<Author, List<Book>> books(List<Author> authorList) {
 
         List<Long> authorIdList = authorList.stream()
                 .map(Author::getId)
                 .distinct()
                 .toList();
 
-        List<Post> postList = postService.findAllByAuthorIdIn(authorIdList);
+        List<Book> bookList = bookService.findAllByAuthorIdIn(authorIdList);
 
-        Map<Long, List<Post>> postsByAuthorId = postList.stream()
-                .collect(Collectors.groupingBy(Post::getAuthorId));
+        Map<Long, List<Book>> booksByAuthorId = bookList.stream()
+                .collect(Collectors.groupingBy(Book::getAuthorId));
 
         return authorList.stream()
                 .collect(Collectors.toMap(
                         author -> author,
-                        author -> postsByAuthorId.getOrDefault(author.getId(), List.of())
+                        author -> booksByAuthorId.getOrDefault(author.getId(), List.of())
                 ));
     }
 

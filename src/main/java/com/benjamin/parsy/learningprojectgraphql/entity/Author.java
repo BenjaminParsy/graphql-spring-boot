@@ -11,6 +11,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @Entity(name = "author")
+@Table(name = "author")
 public class Author {
 
     @Id

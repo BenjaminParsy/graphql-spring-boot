@@ -2,7 +2,7 @@ query getAuthors {
     getAuthors {
         firstname
         lastname
-        posts {
+        books {
             title
             text
         }

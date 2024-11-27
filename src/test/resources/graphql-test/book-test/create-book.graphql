@@ -1,0 +1,13 @@
+mutation createBook($title: String!, $text: String!, $category: String!, $authorId: Int!) {
+    createBook(title: $title, text: $text, category: $category, authorId: $authorId) {
+        id
+        title
+        text
+        category
+        author {
+            id
+            firstname
+            lastname
+        }
+    }
+}
