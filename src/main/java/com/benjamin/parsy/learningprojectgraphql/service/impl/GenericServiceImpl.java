@@ -26,4 +26,8 @@ public abstract class GenericServiceImpl<I> implements GenericService<I> {
         return repository.findById(id);
     }
 
+    public List<I> findAllByIdIn(List<Long> ids) {
+        return repository.findAllById(ids);
+    }
+
 }

@@ -11,4 +11,6 @@ public interface GenericService<I> {
 
     Optional<I> findById(Long id);
 
+    List<I> findAllByIdIn(List<Long> ids);
+
 }

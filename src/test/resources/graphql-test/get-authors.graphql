@@ -1,0 +1,10 @@
+query getAuthors {
+    getAuthors {
+        firstname
+        lastname
+        posts {
+            title
+            text
+        }
+    }
+}

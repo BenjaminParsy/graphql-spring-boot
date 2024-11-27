@@ -36,7 +36,7 @@ public class Post {
     private LocalDateTime createdDate;
 
     @NotNull
-    @JoinColumn(table = "author", referencedColumnName = "id", name = "author_id", nullable = false)
+    @Column(name = "author_id", nullable = false)
     private Long authorId;
 
 }

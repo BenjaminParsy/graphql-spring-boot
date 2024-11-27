@@ -40,11 +40,8 @@ class PostControllerTest {
         Mockito.when(postService.getRecentPosts(Mockito.anyInt(), Mockito.anyInt()))
                 .thenReturn(List.of(post1, post2));
 
-        Mockito.when(authorService.findById(author1.getId()))
-                .thenReturn(Optional.of(author1));
-
-        Mockito.when(authorService.findById(author2.getId()))
-                .thenReturn(Optional.of(author2));
+        Mockito.when(authorService.findAllByIdIn(List.of(author1.getId(), author2.getId())))
+                .thenReturn(List.of(author1, author2));
 
         Map<String, Object> variables = Map.of("count", 10,
                 "offset", 0);
@@ -67,6 +64,9 @@ class PostControllerTest {
 
         Mockito.when(authorService.findById(author1.getId()))
                 .thenReturn(Optional.of(author1));
+
+        Mockito.when(authorService.findAllByIdIn(List.of(author1.getId())))
+                .thenReturn(List.of(author1));
 
         Mockito.when(postService.save(Mockito.any()))
                 .thenAnswer(invocation -> {

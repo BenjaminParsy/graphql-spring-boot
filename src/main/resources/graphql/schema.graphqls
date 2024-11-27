@@ -33,6 +33,4 @@ type Query {
 
     # Authors -------------------------------------------------
     getAuthors: [Author]
-
-    getAuthor: [ID]
 }
