@@ -3,8 +3,10 @@ package com.benjamin.parsy.learningprojectgraphql.controller;
 import com.benjamin.parsy.learningprojectgraphql.DataHelper;
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
-import com.benjamin.parsy.learningprojectgraphql.service.AuthorService;
-import com.benjamin.parsy.learningprojectgraphql.service.BookService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.AuthorService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.BookService;
+import com.benjamin.parsy.learningprojectgraphql.service.helper.message.MessageService;
+import com.benjamin.parsy.learningprojectgraphql.service.helper.message.dto.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.graphql.test.tester.GraphQlTester;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @GraphQlTest
@@ -27,6 +30,9 @@ class BookControllerTest {
 
     @MockBean
     private AuthorService authorService;
+
+    @MockBean
+    private MessageService messageService;
 
     @Test
     void recentBooks() {
@@ -87,6 +93,31 @@ class BookControllerTest {
                 .verify()
                 .path("createBook")
                 .entity(Book.class);
+
+    }
+
+    @Test
+    void createBook_AuthorDoesntExist_ThrowException() {
+
+        Author author1 = DataHelper.createAuthor("John", "Smith", true);
+
+        Mockito.when(authorService.findById(author1.getId()))
+                .thenReturn(Optional.empty());
+
+        Mockito.when(messageService.getMessage(Mockito.any(), Mockito.any()))
+                .thenReturn(new ErrorMessage("[001]", String.format("Author with ID %s does not exist", author1.getId())));
+
+        Map<String, Object> variables = Map.of("title", "testTitle1",
+                "text", "testText1",
+                "category", "testCategory1",
+                "authorId", author1.getId());
+
+        graphQlTester.documentName("book-test/create-book")
+                .variables(variables)
+                .execute()
+                .errors()
+                .expect(e -> Objects.requireNonNull(e.getMessage())
+                        .equals(String.format("[001] Author with ID %s does not exist", author1.getId())));
 
     }
 

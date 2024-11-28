@@ -2,8 +2,8 @@ package com.benjamin.parsy.learningprojectgraphql.controller;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
-import com.benjamin.parsy.learningprojectgraphql.service.AuthorService;
-import com.benjamin.parsy.learningprojectgraphql.service.BookService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.AuthorService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.BookService;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;

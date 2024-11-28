@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 @Entity(name = "book")
 @Table(name = "book")
 public class Book {

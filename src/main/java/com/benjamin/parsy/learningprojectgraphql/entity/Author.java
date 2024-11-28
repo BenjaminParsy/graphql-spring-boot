@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 @Entity(name = "author")
 @Table(name = "author")
 public class Author {

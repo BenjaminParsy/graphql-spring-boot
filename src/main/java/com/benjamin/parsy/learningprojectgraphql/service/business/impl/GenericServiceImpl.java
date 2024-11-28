@@ -1,6 +1,6 @@
-package com.benjamin.parsy.learningprojectgraphql.service.impl;
+package com.benjamin.parsy.learningprojectgraphql.service.business.impl;
 
-import com.benjamin.parsy.learningprojectgraphql.service.GenericService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.GenericService;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

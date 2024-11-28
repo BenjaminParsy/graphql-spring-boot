@@ -1,8 +1,8 @@
-package com.benjamin.parsy.learningprojectgraphql.service.impl;
+package com.benjamin.parsy.learningprojectgraphql.service.business.impl;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
 import com.benjamin.parsy.learningprojectgraphql.repository.AuthorRepository;
-import com.benjamin.parsy.learningprojectgraphql.service.AuthorService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.AuthorService;
 import org.springframework.stereotype.Service;
 
 @Service

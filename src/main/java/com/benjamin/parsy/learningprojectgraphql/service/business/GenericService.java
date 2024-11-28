@@ -1,4 +1,4 @@
-package com.benjamin.parsy.learningprojectgraphql.service;
+package com.benjamin.parsy.learningprojectgraphql.service.business;
 
 import java.util.List;
 import java.util.Optional;

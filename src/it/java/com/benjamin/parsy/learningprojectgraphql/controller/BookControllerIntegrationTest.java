@@ -9,6 +9,7 @@ import org.springframework.graphql.test.tester.GraphQlTester;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Map;
+import java.util.Objects;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -50,6 +51,23 @@ class BookControllerIntegrationTest {
                 .verify()
                 .path("createBook")
                 .entity(Book.class);
+
+    }
+
+    @Test
+    void createBook_AuthorDoesntExist_ThrowException() {
+
+        Map<String, Object> variables = Map.of("title", "testTitle1",
+                "text", "testText1",
+                "category", "testCategory1",
+                "authorId", 999);
+
+        graphQlTester.documentName("book-test/create-book")
+                .variables(variables)
+                .execute()
+                .errors()
+                .expect(e -> Objects.requireNonNull(e.getMessage())
+                        .equals(String.format("[001] Author with ID %s does not exist", 999)));
 
     }
 

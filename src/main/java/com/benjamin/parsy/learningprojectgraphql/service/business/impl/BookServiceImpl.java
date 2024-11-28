@@ -1,8 +1,8 @@
-package com.benjamin.parsy.learningprojectgraphql.service.impl;
+package com.benjamin.parsy.learningprojectgraphql.service.business.impl;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
 import com.benjamin.parsy.learningprojectgraphql.repository.BookRepository;
-import com.benjamin.parsy.learningprojectgraphql.service.BookService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.BookService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 

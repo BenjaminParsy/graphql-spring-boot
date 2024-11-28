@@ -1,4 +1,4 @@
-package com.benjamin.parsy.learningprojectgraphql.service;
+package com.benjamin.parsy.learningprojectgraphql.service.business;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
 import jakarta.validation.constraints.NotNull;

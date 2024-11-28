@@ -3,8 +3,9 @@ package com.benjamin.parsy.learningprojectgraphql.controller;
 import com.benjamin.parsy.learningprojectgraphql.DataHelper;
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
-import com.benjamin.parsy.learningprojectgraphql.service.AuthorService;
-import com.benjamin.parsy.learningprojectgraphql.service.BookService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.AuthorService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.BookService;
+import com.benjamin.parsy.learningprojectgraphql.service.helper.message.MessageService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ class AuthorControllerTest {
 
     @MockBean
     private BookService bookService;
+
+    @MockBean
+    @SuppressWarnings("unused")
+    private MessageService messageService;
 
     @Test
     void getAuthors() {

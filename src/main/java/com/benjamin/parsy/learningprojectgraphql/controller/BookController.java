@@ -2,8 +2,10 @@ package com.benjamin.parsy.learningprojectgraphql.controller;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
-import com.benjamin.parsy.learningprojectgraphql.service.AuthorService;
-import com.benjamin.parsy.learningprojectgraphql.service.BookService;
+import com.benjamin.parsy.learningprojectgraphql.exception.BadRequestException;
+import com.benjamin.parsy.learningprojectgraphql.service.business.AuthorService;
+import com.benjamin.parsy.learningprojectgraphql.service.business.BookService;
+import com.benjamin.parsy.learningprojectgraphql.service.helper.message.dto.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
@@ -58,24 +60,25 @@ public class BookController {
     public Book createBook(@Argument String title,
                            @Argument String text,
                            @Argument String category,
-                           @Argument Long authorId) throws NoSuchFieldException {
+                           @Argument Long authorId) throws BadRequestException {
+
+        if (authorId == null || authorId < 0) {
+            throw new BadRequestException(ErrorCode.BAD_REQUEST_002, "authorId");
+        }
 
         Optional<Author> optionalAuthor = authorService.findById(authorId);
 
         if (optionalAuthor.isEmpty()) {
-            throw new NoSuchFieldException(String.format("Author not found for the id '%s'", authorId));
+            throw new BadRequestException(ErrorCode.BAD_REQUEST_001, authorId.toString());
         }
 
-        Book book = new Book();
-        book.setTitle(title);
-        book.setText(text);
-        book.setCategory(category);
-        book.setCreatedDate(LocalDateTime.now());
-        book.setAuthorId(authorId);
-
-        bookService.save(book);
-
-        return book;
+        return bookService.save(Book.builder()
+                .title(title)
+                .text(text)
+                .category(category)
+                .createdDate(LocalDateTime.now())
+                .authorId(authorId)
+                .build());
     }
 
 }
