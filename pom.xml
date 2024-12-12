@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.benjamin.parsy</groupId>
-    <artifactId>learning-project-graphql</artifactId>
+    <artifactId>lp-graphql</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>learning-project-graphql</name>
     <description>learning-project-graphql</description>

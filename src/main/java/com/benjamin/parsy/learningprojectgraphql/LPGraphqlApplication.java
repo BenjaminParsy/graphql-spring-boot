@@ -11,16 +11,16 @@ import java.net.UnknownHostException;
 
 @SpringBootApplication
 @Slf4j
-public class LearningProjectGraphqlApplication implements CommandLineRunner {
+public class LPGraphqlApplication implements CommandLineRunner {
 
     private final Environment environment;
 
-    public LearningProjectGraphqlApplication(Environment environment) {
+    public LPGraphqlApplication(Environment environment) {
         this.environment = environment;
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(LearningProjectGraphqlApplication.class, args);
+        SpringApplication.run(LPGraphqlApplication.class, args);
     }
 
     @Override
