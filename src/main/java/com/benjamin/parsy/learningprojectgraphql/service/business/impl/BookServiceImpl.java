@@ -20,8 +20,8 @@ public class BookServiceImpl extends GenericServiceImpl<Book> implements BookSer
     }
 
     @Override
-    public List<Book> getRecentBooks(int count, int offset) {
-        return repository.findAllByOrderByCreatedDate(count);
+    public List<Book> findAllWithLimitAndOffset(int limit, int offset) {
+        return repository.findAllByOrderByCreatedDateLimitAndOffset(limit, offset);
     }
 
     @Override

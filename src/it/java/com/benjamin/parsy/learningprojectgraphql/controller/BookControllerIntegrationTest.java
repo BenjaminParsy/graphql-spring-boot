@@ -22,15 +22,15 @@ class BookControllerIntegrationTest {
     @Test
     void recentBooks() {
 
-        Map<String, Object> variables = Map.of("count", 10,
+        Map<String, Object> variables = Map.of("limit", 10,
                 "offset", 0);
 
-        graphQlTester.documentName("book-test/recent-books")
+        graphQlTester.documentName("book-test/get-books")
                 .variables(variables)
                 .execute()
                 .errors()
                 .verify()
-                .path("recentBooks")
+                .path("getBooks")
                 .entityList(Book.class)
                 .hasSize(4);
 

@@ -29,7 +29,7 @@ type Mutation {
 # ====================================================================
 type Query {
     # Books ---------------------------------------------------
-    recentBooks(count: Int, offset: Int): [Book]!
+    getBooks(limit: Int, offset: Int): [Book]!
 
     # Authors -------------------------------------------------
     getAuthors: [Author]

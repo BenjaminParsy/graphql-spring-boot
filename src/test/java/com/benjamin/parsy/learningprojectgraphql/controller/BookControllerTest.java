@@ -35,29 +35,31 @@ class BookControllerTest {
     private MessageService messageService;
 
     @Test
-    void recentBooks() {
+    void getBooks() {
 
+        // Given
         Author author1 = DataHelper.createAuthor("John", "Smith", true);
         Book book1 = DataHelper.createBook("title1", "text1", "category1", author1.getId(), true);
 
         Author author2 = DataHelper.createAuthor("Jane", "Doe", true);
         Book book2 = DataHelper.createBook("title2", "text2", "category2", author2.getId(), true);
 
-        Mockito.when(bookService.getRecentBooks(Mockito.anyInt(), Mockito.anyInt()))
+        Mockito.when(bookService.findAllWithLimitAndOffset(Mockito.anyInt(), Mockito.anyInt()))
                 .thenReturn(List.of(book1, book2));
 
         Mockito.when(authorService.findAllByIdIn(List.of(author1.getId(), author2.getId())))
                 .thenReturn(List.of(author1, author2));
 
-        Map<String, Object> variables = Map.of("count", 10,
+        Map<String, Object> variables = Map.of("limit", 10,
                 "offset", 0);
 
-        graphQlTester.documentName("book-test/recent-books")
+        // When and then
+        graphQlTester.documentName("book-test/get-books")
                 .variables(variables)
                 .execute()
                 .errors()
                 .verify()
-                .path("recentBooks")
+                .path("getBooks")
                 .entityList(Book.class)
                 .hasSize(2);
 

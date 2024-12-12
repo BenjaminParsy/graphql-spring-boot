@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BookService extends GenericService<Book> {
 
-    List<Book> getRecentBooks(int count, int offset);
+    List<Book> findAllWithLimitAndOffset(int limit, int offset);
 
     List<Book> findAllByAuthorIdIn(Collection<@NotNull Long> authorId);
 

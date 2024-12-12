@@ -33,8 +33,8 @@ public class BookController {
     }
 
     @QueryMapping
-    public List<Book> recentBooks(@Argument int count, @Argument int offset) {
-        return bookService.getRecentBooks(count, offset);
+    public List<Book> getBooks(@Argument int limit, @Argument int offset) {
+        return bookService.findAllWithLimitAndOffset(limit, offset);
     }
 
     @BatchMapping

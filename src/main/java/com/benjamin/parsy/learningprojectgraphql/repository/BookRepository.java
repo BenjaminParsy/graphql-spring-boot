@@ -11,8 +11,11 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    @Query("SELECT b FROM book b ORDER BY b.createdDate LIMIT :count")
-    List<Book> findAllByOrderByCreatedDate(@Param("count") int count);
+    @Query(value = "SELECT b FROM book b " +
+            "ORDER BY b.createdDate " +
+            "LIMIT :limit " +
+            "OFFSET :offset")
+    List<Book> findAllByOrderByCreatedDateLimitAndOffset(@Param("limit") int limit, @Param("offset") int offset);
 
     List<Book> findAllByAuthorIdIn(Collection<@NotNull Long> authorId);
 
