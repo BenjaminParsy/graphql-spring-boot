@@ -1,6 +1,6 @@
 package com.benjamin.parsy.lpgraphql.shared.service;
 
-import com.benjamin.parsy.lpgraphql.shared.exception.CustomException;
+import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import org.springframework.lang.NonNull;
 
 import java.util.List;
@@ -16,6 +16,6 @@ public interface GenericService<I> {
 
     List<I> findAllByIdIn(List<Long> ids);
 
-    void deleteById(@NonNull long id) throws CustomException;
+    void deleteById(@NonNull long id) throws GlobalException;
 
 }

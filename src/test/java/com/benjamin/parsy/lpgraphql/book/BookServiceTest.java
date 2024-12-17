@@ -1,6 +1,6 @@
 package com.benjamin.parsy.lpgraphql.book;
 
-import com.benjamin.parsy.lpgraphql.shared.exception.CustomException;
+import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,7 +41,7 @@ class BookServiceTest {
                 .getId() + 1;
 
         // When
-        CustomException exception = assertThrows(CustomException.class,
+        GlobalException exception = assertThrows(GlobalException.class,
                 () -> bookService.deleteById(idUnknown));
 
         // Then

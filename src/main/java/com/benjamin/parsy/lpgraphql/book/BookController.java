@@ -2,7 +2,7 @@ package com.benjamin.parsy.lpgraphql.book;
 
 import com.benjamin.parsy.lpgraphql.author.Author;
 import com.benjamin.parsy.lpgraphql.author.AuthorService;
-import com.benjamin.parsy.lpgraphql.shared.exception.CustomException;
+import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import com.benjamin.parsy.lpgraphql.shared.exception.ErrorCode;
 import com.benjamin.parsy.lpgraphql.shared.exception.GraphQLException;
 import com.benjamin.parsy.lpgraphql.shared.service.MessageService;
@@ -94,8 +94,8 @@ public class BookController {
 
         try {
             bookService.deleteById(bookId);
-        } catch (CustomException e) {
-            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR4, bookId));
+        } catch (GlobalException e) {
+            throw new GraphQLException(e.getErrorMessage());
         }
 
         return true;
