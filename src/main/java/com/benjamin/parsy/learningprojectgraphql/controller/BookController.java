@@ -2,10 +2,12 @@ package com.benjamin.parsy.learningprojectgraphql.controller;
 
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
-import com.benjamin.parsy.learningprojectgraphql.exception.BadRequestException;
+import com.benjamin.parsy.learningprojectgraphql.exception.CustomException;
+import com.benjamin.parsy.learningprojectgraphql.exception.ErrorCode;
+import com.benjamin.parsy.learningprojectgraphql.exception.GraphQLException;
 import com.benjamin.parsy.learningprojectgraphql.service.business.AuthorService;
 import com.benjamin.parsy.learningprojectgraphql.service.business.BookService;
-import com.benjamin.parsy.learningprojectgraphql.service.helper.message.dto.ErrorCode;
+import com.benjamin.parsy.learningprojectgraphql.service.helper.message.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
@@ -26,10 +28,12 @@ public class BookController {
 
     private final BookService bookService;
     private final AuthorService authorService;
+    private final MessageService messageService;
 
-    public BookController(BookService bookService, AuthorService authorService) {
+    public BookController(BookService bookService, AuthorService authorService, MessageService messageService) {
         this.bookService = bookService;
         this.authorService = authorService;
+        this.messageService = messageService;
     }
 
     @QueryMapping
@@ -60,16 +64,16 @@ public class BookController {
     public Book createBook(@Argument String title,
                            @Argument String text,
                            @Argument String category,
-                           @Argument Long authorId) throws BadRequestException {
+                           @Argument Long authorId) {
 
         if (authorId == null || authorId < 0) {
-            throw new BadRequestException(ErrorCode.BAD_REQUEST_002, "authorId");
+            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR2, "authorId"));
         }
 
         Optional<Author> optionalAuthor = authorService.findById(authorId);
 
         if (optionalAuthor.isEmpty()) {
-            throw new BadRequestException(ErrorCode.BAD_REQUEST_001, authorId.toString());
+            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR1, authorId));
         }
 
         return bookService.save(Book.builder()
@@ -79,6 +83,24 @@ public class BookController {
                 .createdDate(LocalDateTime.now())
                 .authorId(authorId)
                 .build());
+    }
+
+    @MutationMapping
+    public boolean deleteBookById(@Argument Long bookId) {
+
+        Optional<Book> optionalBook = bookService.findById(bookId);
+
+        if (optionalBook.isEmpty()) {
+            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR3, bookId));
+        }
+
+        try {
+            bookService.deleteById(bookId);
+        } catch (CustomException e) {
+            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR4, bookId));
+        }
+
+        return true;
     }
 
 }

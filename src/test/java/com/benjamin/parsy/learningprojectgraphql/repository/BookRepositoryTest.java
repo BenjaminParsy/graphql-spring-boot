@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ class BookRepositoryTest {
     @Autowired
     private BookRepository bookRepository;
 
+    @Sql(scripts = "classpath:data-test.sql")
     @ParameterizedTest
     @ValueSource(ints = {1, 10, 20})
     void findAllByOrderByCreatedDateLimitAndOffset_limitResult_shouldBeLessOrEgal(int limit) {
@@ -33,6 +35,7 @@ class BookRepositoryTest {
 
     }
 
+    @Sql(scripts = "classpath:data-test.sql")
     @Test
     void findAllByOrderByCreatedDateLimitAndOffset_OffsetResult_shouldSkipFirst() {
 

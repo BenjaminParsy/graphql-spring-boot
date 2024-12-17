@@ -3,6 +3,7 @@ package com.benjamin.parsy.learningprojectgraphql.service.business.impl;
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
 import com.benjamin.parsy.learningprojectgraphql.repository.BookRepository;
 import com.benjamin.parsy.learningprojectgraphql.service.business.BookService;
+import com.benjamin.parsy.learningprojectgraphql.service.helper.message.MessageService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ public class BookServiceImpl extends GenericServiceImpl<Book> implements BookSer
 
     private final BookRepository repository;
 
-    protected BookServiceImpl(BookRepository repository) {
-        super(repository);
+    protected BookServiceImpl(BookRepository repository, MessageService messageService) {
+        super(repository, messageService);
         this.repository = repository;
     }
 

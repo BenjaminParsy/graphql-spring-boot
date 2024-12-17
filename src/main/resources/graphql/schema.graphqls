@@ -21,7 +21,9 @@ type Author {
 # ====================================================================
 type Mutation {
     # Books ---------------------------------------------------
-    createBook(title: String!, text: String!, category: String, authorId: Int!) : Book
+    createBook(title: String!, text: String!, category: String, authorId: Int!): Book
+
+    deleteBookById(bookId: ID!): Boolean
 }
 
 # ====================================================================

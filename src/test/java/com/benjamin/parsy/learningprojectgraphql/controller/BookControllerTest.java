@@ -3,10 +3,10 @@ package com.benjamin.parsy.learningprojectgraphql.controller;
 import com.benjamin.parsy.learningprojectgraphql.DataHelper;
 import com.benjamin.parsy.learningprojectgraphql.entity.Author;
 import com.benjamin.parsy.learningprojectgraphql.entity.Book;
+import com.benjamin.parsy.learningprojectgraphql.exception.ErrorMessage;
 import com.benjamin.parsy.learningprojectgraphql.service.business.AuthorService;
 import com.benjamin.parsy.learningprojectgraphql.service.business.BookService;
 import com.benjamin.parsy.learningprojectgraphql.service.helper.message.MessageService;
-import com.benjamin.parsy.learningprojectgraphql.service.helper.message.dto.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +106,7 @@ class BookControllerTest {
         Mockito.when(authorService.findById(author1.getId()))
                 .thenReturn(Optional.empty());
 
-        Mockito.when(messageService.getMessage(Mockito.any(), Mockito.any()))
+        Mockito.when(messageService.getErrorMessage(Mockito.any(), Mockito.any()))
                 .thenReturn(new ErrorMessage("[001]", String.format("Author with ID %s does not exist", author1.getId())));
 
         Map<String, Object> variables = Map.of("title", "testTitle1",

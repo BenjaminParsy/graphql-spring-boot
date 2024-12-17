@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureH
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -16,6 +17,7 @@ class AuthorControllerIntegrationTest {
     @Autowired
     private GraphQlTester graphQlTester;
 
+    @Sql(scripts = "classpath:data-test.sql")
     @Test
     void getAuthors() {
 

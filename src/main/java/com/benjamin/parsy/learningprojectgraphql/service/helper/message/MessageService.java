@@ -1,10 +1,10 @@
 package com.benjamin.parsy.learningprojectgraphql.service.helper.message;
 
-import com.benjamin.parsy.learningprojectgraphql.service.helper.message.dto.ErrorCode;
-import com.benjamin.parsy.learningprojectgraphql.service.helper.message.dto.ErrorMessage;
+import com.benjamin.parsy.learningprojectgraphql.exception.ErrorCode;
+import com.benjamin.parsy.learningprojectgraphql.exception.ErrorMessage;
 
 public interface MessageService {
 
-    ErrorMessage getMessage(ErrorCode errorCode, String[] args);
+    ErrorMessage getErrorMessage(ErrorCode errorCode, Object... args);
 
 }

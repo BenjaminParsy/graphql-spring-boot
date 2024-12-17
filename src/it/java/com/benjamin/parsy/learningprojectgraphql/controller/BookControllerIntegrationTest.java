@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureH
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Map;
 import java.util.Objects;
@@ -19,6 +20,7 @@ class BookControllerIntegrationTest {
     @Autowired
     private GraphQlTester graphQlTester;
 
+    @Sql(scripts = "classpath:data-test.sql")
     @Test
     void recentBooks() {
 
@@ -36,6 +38,7 @@ class BookControllerIntegrationTest {
 
     }
 
+    @Sql(scripts = "classpath:data-test.sql")
     @Test
     void createBook() {
 
@@ -54,6 +57,7 @@ class BookControllerIntegrationTest {
 
     }
 
+    @Sql(scripts = "classpath:data-test.sql")
     @Test
     void createBook_AuthorDoesntExist_ThrowException() {
 
@@ -67,7 +71,7 @@ class BookControllerIntegrationTest {
                 .execute()
                 .errors()
                 .expect(e -> Objects.requireNonNull(e.getMessage())
-                        .equals(String.format("[001] Author with ID %s does not exist", 999)));
+                        .equals(String.format("[BR1] Author with ID %s does not exist", 999)));
 
     }
 

@@ -1,7 +1,11 @@
 package com.benjamin.parsy.learningprojectgraphql.service.business.impl;
 
+import com.benjamin.parsy.learningprojectgraphql.exception.CustomException;
+import com.benjamin.parsy.learningprojectgraphql.exception.ErrorCode;
 import com.benjamin.parsy.learningprojectgraphql.service.business.GenericService;
+import com.benjamin.parsy.learningprojectgraphql.service.helper.message.MessageService;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +13,11 @@ import java.util.Optional;
 public abstract class GenericServiceImpl<I> implements GenericService<I> {
 
     private final JpaRepository<I, Long> repository;
+    private final MessageService messageService;
 
-    protected GenericServiceImpl(JpaRepository<I, Long> repository) {
+    protected GenericServiceImpl(JpaRepository<I, Long> repository, MessageService messageService) {
         this.repository = repository;
+        this.messageService = messageService;
     }
 
     public I save(I obj) {
@@ -28,6 +34,20 @@ public abstract class GenericServiceImpl<I> implements GenericService<I> {
 
     public List<I> findAllByIdIn(List<Long> ids) {
         return repository.findAllById(ids);
+    }
+
+    public void deleteById(@NonNull long id) throws CustomException {
+
+        if (!repository.existsById(id)) {
+            throw new CustomException(messageService.getErrorMessage(ErrorCode.IE1, id));
+        }
+
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            throw new CustomException(messageService.getErrorMessage(ErrorCode.IE2, id));
+        }
+
     }
 
 }

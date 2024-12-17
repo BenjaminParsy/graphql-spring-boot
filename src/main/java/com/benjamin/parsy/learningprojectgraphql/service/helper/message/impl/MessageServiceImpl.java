@@ -1,20 +1,15 @@
 package com.benjamin.parsy.learningprojectgraphql.service.helper.message.impl;
 
+import com.benjamin.parsy.learningprojectgraphql.exception.ErrorCode;
+import com.benjamin.parsy.learningprojectgraphql.exception.ErrorMessage;
 import com.benjamin.parsy.learningprojectgraphql.service.helper.message.MessageService;
-import com.benjamin.parsy.learningprojectgraphql.service.helper.message.dto.ErrorCode;
-import com.benjamin.parsy.learningprojectgraphql.service.helper.message.dto.ErrorMessage;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
-@Service
-@Slf4j
+@Component
 public class MessageServiceImpl implements MessageService {
-
-    private static final String CODE_KEY = ".code";
-    private static final String MESSAGE_KEY = ".message";
 
     private final MessageSource messageSource;
 
@@ -23,16 +18,21 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public ErrorMessage getMessage(ErrorCode errorCode, String... args) {
+    public ErrorMessage getErrorMessage(ErrorCode errorCode, Object[] args) {
 
-        String code = getLocalizedMessage(errorCode.getCodeKey().concat(CODE_KEY));
-        String message = getLocalizedMessage(errorCode.getCodeKey().concat(MESSAGE_KEY), args);
+        String code = getLocalizedMessage(errorCode.getCodeKey());
+        String description = getLocalizedMessage(errorCode.getDescriptionKey(), args);
 
-        return new ErrorMessage(code, message);
+        return new ErrorMessage(code, description);
     }
 
-    private String getLocalizedMessage(String key, String... args) {
-        return messageSource.getMessage(key, args, Locale.getDefault());
+    private String getLocalizedMessage(String key, Object... args) {
+
+        try {
+            return messageSource.getMessage(key, args, Locale.getDefault());
+        } catch (Exception e) {
+            return "Message not found";
+        }
     }
 
 }
