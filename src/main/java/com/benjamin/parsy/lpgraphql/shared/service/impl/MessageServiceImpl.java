@@ -4,6 +4,7 @@ import com.benjamin.parsy.lpgraphql.shared.exception.ErrorCode;
 import com.benjamin.parsy.lpgraphql.shared.exception.ErrorMessage;
 import com.benjamin.parsy.lpgraphql.shared.service.MessageService;
 import org.springframework.context.MessageSource;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -17,6 +18,7 @@ public class MessageServiceImpl implements MessageService {
         this.messageSource = messageSource;
     }
 
+    @NonNull
     @Override
     public ErrorMessage getErrorMessage(ErrorCode errorCode, Object[] args) {
 

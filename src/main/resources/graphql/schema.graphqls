@@ -21,9 +21,17 @@ type Author {
 # ====================================================================
 type Mutation {
     # Books ---------------------------------------------------
+    """
+    - Description : Mutation for create a book
+    - Return : The book created
+    """
     createBook(title: String!, text: String!, category: String, authorId: Int!): Book
 
-    deleteBookById(bookId: ID!): Boolean
+    """
+    - Description : Mutation for delete book by id
+    - Return : The book deleted
+    """
+    deleteBook(bookId: ID!): Book!
 }
 
 # ====================================================================
@@ -31,8 +39,16 @@ type Mutation {
 # ====================================================================
 type Query {
     # Books ---------------------------------------------------
+    """
+    - Description : Query to find all books
+    - Return : All books find
+    """
     getBooks(limit: Int, offset: Int): [Book]!
 
     # Authors -------------------------------------------------
+    """
+    - Description : Query to find all authors
+    - Return : All authors find
+    """
     getAuthors: [Author]
 }

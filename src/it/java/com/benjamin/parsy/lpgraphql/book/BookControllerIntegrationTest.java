@@ -1,5 +1,6 @@
 package com.benjamin.parsy.lpgraphql.book;
 
+import com.benjamin.parsy.lpgraphql.author.AuthorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureHttpGraphQlTester;
@@ -18,6 +19,12 @@ class BookControllerIntegrationTest {
 
     @Autowired
     private GraphQlTester graphQlTester;
+
+    @Autowired
+    private BookService bookService;
+
+    @Autowired
+    private AuthorService authorService;
 
     @Sql(scripts = "classpath:data-test.sql")
     @Test
@@ -41,10 +48,15 @@ class BookControllerIntegrationTest {
     @Test
     void createBook() {
 
+        long authorIdKnow = authorService.findAll().stream()
+                .findFirst()
+                .orElseThrow()
+                .getId();
+
         Map<String, Object> variables = Map.of("title", "testTitle1",
                 "text", "testText1",
                 "category", "testCategory1",
-                "authorId", 2);
+                "authorId", authorIdKnow);
 
         graphQlTester.documentName("book-test/create-book")
                 .variables(variables)
@@ -71,6 +83,28 @@ class BookControllerIntegrationTest {
                 .errors()
                 .expect(e -> Objects.requireNonNull(e.getMessage())
                         .equals(String.format("[BR1] Author with ID %s does not exist", 999)));
+
+    }
+
+    @Sql(scripts = "classpath:data-test.sql")
+    @Test
+    void deleteBook_deleteOk() {
+
+        // Given
+        long idknown = bookService.findAll().stream()
+                .findFirst()
+                .orElseThrow()
+                .getId();
+
+        Map<String, Object> variables = Map.of("bookId", idknown);
+
+        graphQlTester.documentName("book-test/delete-book")
+                .variables(variables)
+                .execute()
+                .errors()
+                .verify()
+                .path("deleteBook")
+                .entity(Book.class);
 
     }
 

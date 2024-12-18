@@ -1,7 +1,7 @@
 package com.benjamin.parsy.lpgraphql.shared.service.impl;
 
-import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import com.benjamin.parsy.lpgraphql.shared.exception.ErrorCode;
+import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import com.benjamin.parsy.lpgraphql.shared.service.GenericService;
 import com.benjamin.parsy.lpgraphql.shared.service.MessageService;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,11 +36,10 @@ public abstract class GenericServiceImpl<I> implements GenericService<I> {
         return repository.findAllById(ids);
     }
 
-    public void deleteById(@NonNull long id) throws GlobalException {
+    public I deleteById(@NonNull long id) throws GlobalException {
 
-        if (!repository.existsById(id)) {
-            throw new GlobalException(messageService.getErrorMessage(ErrorCode.IE1, id));
-        }
+        I item = repository.findById(id).orElseThrow(() ->
+                new GlobalException(messageService.getErrorMessage(ErrorCode.IE1, id)));
 
         try {
             repository.deleteById(id);
@@ -48,6 +47,7 @@ public abstract class GenericServiceImpl<I> implements GenericService<I> {
             throw new GlobalException(messageService.getErrorMessage(ErrorCode.IE2, id));
         }
 
+        return item;
     }
 
 }

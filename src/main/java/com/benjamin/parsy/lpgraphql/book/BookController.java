@@ -2,8 +2,8 @@ package com.benjamin.parsy.lpgraphql.book;
 
 import com.benjamin.parsy.lpgraphql.author.Author;
 import com.benjamin.parsy.lpgraphql.author.AuthorService;
-import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import com.benjamin.parsy.lpgraphql.shared.exception.ErrorCode;
+import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import com.benjamin.parsy.lpgraphql.shared.exception.GraphQLException;
 import com.benjamin.parsy.lpgraphql.shared.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
@@ -51,11 +51,20 @@ public class BookController {
                 .stream()
                 .collect(Collectors.toMap(Author::getId, Function.identity()));
 
-        return bookList.stream()
-                .collect(Collectors.toMap(
-                        Function.identity(),
-                        book -> authorById.get(book.getAuthorId()), (a, b) -> b
-                ));
+        if (authorById.isEmpty()) {
+            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR6));
+        }
+
+        return bookList.stream().collect(Collectors.toMap(
+                Function.identity(),
+                book -> {
+                    Author author = authorById.get(book.getAuthorId());
+                    if (author == null) {
+                        throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR7, book.getId()));
+                    }
+                    return author;
+                }
+        ));
     }
 
     @MutationMapping
@@ -84,7 +93,7 @@ public class BookController {
     }
 
     @MutationMapping
-    public boolean deleteBookById(@Argument Long bookId) {
+    public Book deleteBook(@Argument Long bookId) {
 
         Optional<Book> optionalBook = bookService.findById(bookId);
 
@@ -93,12 +102,11 @@ public class BookController {
         }
 
         try {
-            bookService.deleteById(bookId);
+            return bookService.deleteById(bookId);
         } catch (GlobalException e) {
             throw new GraphQLException(e.getErrorMessage());
         }
 
-        return true;
     }
 
 }

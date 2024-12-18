@@ -39,6 +39,6 @@ public class Book {
 
     @NotNull
     @Column(name = "author_id", nullable = false)
-    private Long authorId;
+    private long authorId;
 
 }

@@ -16,6 +16,6 @@ public interface GenericService<I> {
 
     List<I> findAllByIdIn(List<Long> ids);
 
-    void deleteById(@NonNull long id) throws GlobalException;
+    I deleteById(@NonNull long id) throws GlobalException;
 
 }
