@@ -12,7 +12,7 @@ This project is a sample application to learn and explore the use of GraphQL wit
 
 - Basic configuration of GraphQL in Spring Boot.
 - Example model (e.g., `Book` and `Author`).
-- GraphQL operations: `query`, `mutation`, and `subscription`.
+- GraphQL operations: `query`, `mutation`
 - Unit tests for GraphQL queries and mutations.
 
 ## Installation
@@ -20,8 +20,7 @@ This project is a sample application to learn and explore the use of GraphQL wit
 1. Clone the project:
 
    ```bash
-   git clone https://github.com/votre-utilisateur/graphql-springboot-demo.git
-   cd graphql-springboot-demo
+   git clone https://gitlab.com/learning-projects10/lp-graphql.git
    ```
 
 2. Compile and run the application:
@@ -38,9 +37,10 @@ This project is a sample application to learn and explore the use of GraphQL wit
 ## Project structure
 
 - src/main/java: Contains the main source code.
-    - entity` : Data entities.
-    - repository` : Interfaces for data access (in memory or database).
-    - `controller` : Implementations of queries, mutations and subscriptions.
+    - `user` : User feature
+    - `book` : Book feature
+    - `shared` : Shared component, service and model.
 
 - src/main/resources` :
     - `schema.graphqls`: GraphQL schema containing types, queries, mutations and subscriptions.
+    - `messages/error.properties`: Error messages 
