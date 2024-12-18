@@ -39,14 +39,8 @@ public class AuthorController {
 
         List<Book> bookList = bookService.findAllByAuthorIdIn(authorIdList);
 
-        Map<Long, List<Book>> booksByAuthorId = bookList.stream()
-                .collect(Collectors.groupingBy(Book::getAuthorId));
-
-        return authorList.stream()
-                .collect(Collectors.toMap(
-                        author -> author,
-                        author -> booksByAuthorId.getOrDefault(author.getId(), List.of())
-                ));
+        return bookList.stream()
+                .collect(Collectors.groupingBy(Book::getAuthor));
     }
 
 }

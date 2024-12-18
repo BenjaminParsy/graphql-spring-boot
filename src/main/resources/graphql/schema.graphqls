@@ -25,7 +25,7 @@ type Mutation {
     - Description : Mutation for create a book
     - Return : The book created
     """
-    createBook(title: String!, text: String!, category: String, authorId: Int!): Book
+    createBook(title: String!, text: String!, category: String, authorId: Int!): Book!
 
     """
     - Description : Mutation for delete book by id
@@ -43,7 +43,7 @@ type Query {
     - Description : Query to find all books
     - Return : All books find
     """
-    getBooks(limit: Int, offset: Int): [Book]!
+    getBooks(limit: Int, offset: Int): [Book]
 
     # Authors -------------------------------------------------
     """

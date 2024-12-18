@@ -25,14 +25,14 @@ public class DataHelper {
         return author;
     }
 
-    public static Book createBook(String title, String text, String category, Long authorId, boolean fakeId) {
+    public static Book createBook(String title, String text, String category, Author author, boolean fakeId) {
 
         Book book = new Book();
         book.setTitle(title);
         book.setText(text);
         book.setCategory(category);
         book.setCreatedDate(LocalDateTime.now());
-        book.setAuthorId(authorId);
+        book.setAuthor(author);
 
         if (fakeId) {
             book.setId(Long.valueOf(RandomStringUtils.randomNumeric(4)));

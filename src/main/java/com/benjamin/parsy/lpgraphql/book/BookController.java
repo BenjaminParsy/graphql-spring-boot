@@ -42,29 +42,11 @@ public class BookController {
     @BatchMapping
     public Map<Book, Author> author(List<Book> bookList) {
 
-        List<Long> authorIdList = bookList.stream()
-                .map(Book::getAuthorId)
-                .distinct()
-                .toList();
-
-        Map<Long, Author> authorById = authorService.findAllByIdIn(authorIdList)
-                .stream()
-                .collect(Collectors.toMap(Author::getId, Function.identity()));
-
-        if (authorById.isEmpty()) {
-            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR6));
-        }
-
-        return bookList.stream().collect(Collectors.toMap(
-                Function.identity(),
-                book -> {
-                    Author author = authorById.get(book.getAuthorId());
-                    if (author == null) {
-                        throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR7, book.getId()));
-                    }
-                    return author;
-                }
-        ));
+        return bookList.stream()
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        Book::getAuthor
+                ));
     }
 
     @MutationMapping
@@ -88,7 +70,7 @@ public class BookController {
                 .text(text)
                 .category(category)
                 .createdDate(LocalDateTime.now())
-                .authorId(authorId)
+                .author(optionalAuthor.get())
                 .build());
     }
 

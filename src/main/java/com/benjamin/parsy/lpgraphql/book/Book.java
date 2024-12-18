@@ -1,5 +1,6 @@
 package com.benjamin.parsy.lpgraphql.book;
 
+import com.benjamin.parsy.lpgraphql.author.Author;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -38,7 +39,7 @@ public class Book {
     private LocalDateTime createdDate;
 
     @NotNull
-    @Column(name = "author_id", nullable = false)
-    private long authorId;
+    @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY, optional = false)
+    private Author author;
 
 }
