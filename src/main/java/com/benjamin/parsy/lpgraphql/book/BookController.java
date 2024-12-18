@@ -2,6 +2,8 @@ package com.benjamin.parsy.lpgraphql.book;
 
 import com.benjamin.parsy.lpgraphql.author.Author;
 import com.benjamin.parsy.lpgraphql.author.AuthorService;
+import com.benjamin.parsy.lpgraphql.review.Review;
+import com.benjamin.parsy.lpgraphql.review.ReviewService;
 import com.benjamin.parsy.lpgraphql.shared.exception.ErrorCode;
 import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import com.benjamin.parsy.lpgraphql.shared.exception.GraphQLException;
@@ -27,11 +29,14 @@ public class BookController {
     private final BookService bookService;
     private final AuthorService authorService;
     private final MessageService messageService;
+    private final ReviewService reviewService;
 
-    public BookController(BookService bookService, AuthorService authorService, MessageService messageService) {
+    public BookController(BookService bookService, AuthorService authorService,
+                          MessageService messageService, ReviewService reviewService) {
         this.bookService = bookService;
         this.authorService = authorService;
         this.messageService = messageService;
+        this.reviewService = reviewService;
     }
 
     @QueryMapping
@@ -47,6 +52,20 @@ public class BookController {
                         Function.identity(),
                         Book::getAuthor
                 ));
+    }
+
+    @BatchMapping
+    public Map<Book, List<Review>> reviews(List<Book> bookList) {
+
+        List<Long> bookIdList = bookList.stream()
+                .map(Book::getId)
+                .distinct()
+                .toList();
+
+        List<Review> reviewList = reviewService.findAllByBookIdIn(bookIdList);
+
+        return reviewList.stream()
+                .collect(Collectors.groupingBy(Review::getBook));
     }
 
     @MutationMapping

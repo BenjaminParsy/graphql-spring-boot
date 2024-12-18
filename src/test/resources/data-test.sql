@@ -1,4 +1,5 @@
 
+DELETE FROM review;
 DELETE FROM book;
 DELETE FROM author;
 

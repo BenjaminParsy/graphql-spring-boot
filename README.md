@@ -12,7 +12,7 @@ This project is a sample application to learn and explore the use of GraphQL wit
 
 - Basic configuration of GraphQL in Spring Boot.
 - Example model (e.g., `Book` and `Author`).
-- GraphQL operations: `query`, `mutation`
+- GraphQL operations: `query`, `mutation` and `subscription`
 - Unit tests for GraphQL queries and mutations.
 
 ## Installation
@@ -40,6 +40,7 @@ This project is a sample application to learn and explore the use of GraphQL wit
     - `user` : User feature
     - `book` : Book feature
     - `shared` : Shared component, service and model.
+    - `configuration` : Manage configuration (beans, etc)
 
 - src/main/resources` :
     - `schema.graphqls`: GraphQL schema containing types, queries, mutations and subscriptions.
