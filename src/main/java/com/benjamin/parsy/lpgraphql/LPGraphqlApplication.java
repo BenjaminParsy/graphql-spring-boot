@@ -35,7 +35,7 @@ public class LPGraphqlApplication implements CommandLineRunner {
             String serverPort = environment.getRequiredProperty("server.port");
             String h2Path = environment.getRequiredProperty("spring.h2.console.path");
 
-            log.info("Qraphiql interface launch on url : http://{}:{}{}", host, serverPort, graphiqlPath);
+            log.info("Graphiql interface launch on url : http://{}:{}{}", host, serverPort, graphiqlPath);
             log.info("H2 interface launch on url : http://{}:{}{}", host, serverPort, h2Path);
 
         } catch (UnknownHostException e) {

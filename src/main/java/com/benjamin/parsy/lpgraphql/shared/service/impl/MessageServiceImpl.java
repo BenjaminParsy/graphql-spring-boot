@@ -29,12 +29,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     private String getLocalizedMessage(String key, Object... args) {
-
-        try {
-            return messageSource.getMessage(key, args, Locale.getDefault());
-        } catch (Exception e) {
-            return "Message not found";
-        }
+        return messageSource.getMessage(key, args, Locale.getDefault());
     }
 
 }

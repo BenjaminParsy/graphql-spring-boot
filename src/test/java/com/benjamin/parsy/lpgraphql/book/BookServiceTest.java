@@ -1,5 +1,6 @@
 package com.benjamin.parsy.lpgraphql.book;
 
+import com.benjamin.parsy.lpgraphql.AbstractTest;
 import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class BookServiceTest {
+class BookServiceTest extends AbstractTest {
 
     @Autowired
     private BookService bookService;

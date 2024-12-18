@@ -1,5 +1,6 @@
 package com.benjamin.parsy.lpgraphql.book;
 
+import com.benjamin.parsy.lpgraphql.AbstractTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-class BookRepositoryTest {
+class BookRepositoryTest extends AbstractTest {
 
     @Autowired
     private BookRepository bookRepository;

@@ -1,5 +1,6 @@
 package com.benjamin.parsy.lpgraphql.book;
 
+import com.benjamin.parsy.lpgraphql.AbstractTest;
 import com.benjamin.parsy.lpgraphql.author.AuthorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 @SpringBootTest
 @AutoConfigureHttpGraphQlTester
-class BookControllerTest {
+class BookControllerTest extends AbstractTest {
 
     @Autowired
     private GraphQlTester graphQlTester;

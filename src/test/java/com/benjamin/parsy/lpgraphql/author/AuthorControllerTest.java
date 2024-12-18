@@ -1,5 +1,6 @@
 package com.benjamin.parsy.lpgraphql.author;
 
+import com.benjamin.parsy.lpgraphql.AbstractTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureHttpGraphQlTester;
@@ -9,7 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest
 @AutoConfigureHttpGraphQlTester
-class AuthorControllerTest {
+class AuthorControllerTest extends AbstractTest {
 
     @Autowired
     private GraphQlTester graphQlTester;
