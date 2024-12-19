@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Data
 @AllArgsConstructor
@@ -25,6 +27,7 @@ public class Review {
     @Column(name = "created_by", nullable = false)
     private String createdBy;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, optional = false)
     private Book book;
 

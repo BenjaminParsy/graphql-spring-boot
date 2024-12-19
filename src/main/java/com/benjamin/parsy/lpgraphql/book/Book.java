@@ -1,12 +1,14 @@
 package com.benjamin.parsy.lpgraphql.book;
 
 import com.benjamin.parsy.lpgraphql.author.Author;
+import com.benjamin.parsy.lpgraphql.review.Review;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,22 +25,18 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
     @Column(name = "title", nullable = false)
     private String title;
 
-    @NotEmpty
     @Column(name = "text", nullable = false)
     private String text;
 
     @Column(name = "category")
     private String category;
 
-    @NotNull
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
-    @NotNull
     @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY, optional = false)
     private Author author;
 

@@ -43,7 +43,7 @@ public class BookController {
     }
 
     @QueryMapping
-    public List<Book> getBooks(@Argument int limit, @Argument int offset) {
+    public List<Book> getBooks(@Argument Integer limit, @Argument Integer offset) {
         return bookService.findAllWithLimitAndOffset(limit, offset);
     }
 

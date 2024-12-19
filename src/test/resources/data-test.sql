@@ -17,3 +17,6 @@ INSERT INTO book (title, text, category, created_date, author_id)
 
 INSERT INTO book (title, text, category, created_date, author_id)
     SELECT 'title_4', 'text_4', 'novel', '2024-12-20', id from author a where a.firstname = 'Jane';
+
+INSERT INTO review (text, created_by, book_id)
+    SELECT 'Comment number 1', 'Benjamin', id from book b where b.title = 'title_1';

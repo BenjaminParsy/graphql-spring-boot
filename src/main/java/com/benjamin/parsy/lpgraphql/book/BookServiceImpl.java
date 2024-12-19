@@ -19,8 +19,12 @@ public class BookServiceImpl extends GenericServiceImpl<Book> implements BookSer
     }
 
     @Override
-    public List<Book> findAllWithLimitAndOffset(int limit, int offset) {
-        return repository.findAllByOrderByCreatedDateLimitAndOffset(limit, offset);
+    public List<Book> findAllWithLimitAndOffset(Integer limit, Integer offset) {
+
+        offset = offset == null ? 0 : offset;
+
+        return limit == null ? repository.findAllByOrderByCreatedDateOffset(offset) :
+                repository.findAllByOrderByCreatedDateLimitAndOffset(limit, offset);
     }
 
     @Override

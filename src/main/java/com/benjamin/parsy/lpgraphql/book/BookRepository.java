@@ -16,6 +16,12 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "OFFSET :offset")
     List<Book> findAllByOrderByCreatedDateLimitAndOffset(@Param("limit") int limit, @Param("offset") int offset);
 
+    @Query(value = "SELECT b FROM book b " +
+            "ORDER BY b.createdDate " +
+            "OFFSET :offset")
+    List<Book> findAllByOrderByCreatedDateOffset(@Param("offset") int offset);
+
+
     List<Book> findAllByAuthorIdIn(Collection<@NotNull Long> authorId);
 
 }
