@@ -5,6 +5,8 @@ import com.benjamin.parsy.lpgraphql.book.BookService;
 import com.benjamin.parsy.lpgraphql.shared.exception.ErrorCode;
 import com.benjamin.parsy.lpgraphql.shared.exception.GraphQLException;
 import com.benjamin.parsy.lpgraphql.shared.service.MessageService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -47,19 +49,17 @@ public class ReviewController {
     }
 
     @MutationMapping
-    public Review createReview(@Argument String text,
-                               @Argument String createdBy,
-                               @Argument Long bookId) {
+    public Review createReview(@Argument @NotNull @Valid ReviewDto reviewDto) {
 
-        Optional<Book> optionalBook = bookService.findById(bookId);
+        Optional<Book> optionalBook = bookService.findById(reviewDto.getBookId());
 
         if (optionalBook.isEmpty()) {
-            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR3, bookId));
+            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR3, reviewDto.getBookId()));
         }
 
         return reviewService.save(Review.builder()
-                .text(text)
-                .createdBy(createdBy)
+                .text(reviewDto.getText())
+                .createdBy(reviewDto.getCreatedBy())
                 .book(optionalBook.get())
                 .build());
     }

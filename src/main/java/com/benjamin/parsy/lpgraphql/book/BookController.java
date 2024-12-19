@@ -8,6 +8,9 @@ import com.benjamin.parsy.lpgraphql.shared.exception.ErrorCode;
 import com.benjamin.parsy.lpgraphql.shared.exception.GlobalException;
 import com.benjamin.parsy.lpgraphql.shared.exception.GraphQLException;
 import com.benjamin.parsy.lpgraphql.shared.service.MessageService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
@@ -69,32 +72,25 @@ public class BookController {
     }
 
     @MutationMapping
-    public Book createBook(@Argument String title,
-                           @Argument String text,
-                           @Argument String category,
-                           @Argument Long authorId) {
+    public Book createBook(@Argument @NotNull @Valid BookDto bookDto) {
 
-        if (authorId == null || authorId < 0) {
-            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR2, "authorId"));
-        }
-
-        Optional<Author> optionalAuthor = authorService.findById(authorId);
+        Optional<Author> optionalAuthor = authorService.findById(bookDto.getAuthorId());
 
         if (optionalAuthor.isEmpty()) {
-            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR1, authorId));
+            throw new GraphQLException(messageService.getErrorMessage(ErrorCode.BR1, bookDto.getAuthorId()));
         }
 
         return bookService.save(Book.builder()
-                .title(title)
-                .text(text)
-                .category(category)
+                .title(bookDto.getTitle())
+                .text(bookDto.getText())
+                .category(bookDto.getCategory())
                 .createdDate(LocalDateTime.now())
                 .author(optionalAuthor.get())
                 .build());
     }
 
     @MutationMapping
-    public Book deleteBook(@Argument Long bookId) {
+    public Book deleteBook(@Argument @Min(0) Long bookId) {
 
         Optional<Book> optionalBook = bookService.findById(bookId);
 

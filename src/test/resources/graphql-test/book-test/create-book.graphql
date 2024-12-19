@@ -1,5 +1,5 @@
-mutation createBook($title: String!, $text: String!, $category: String!, $authorId: Int!) {
-    createBook(title: $title, text: $text, category: $category, authorId: $authorId) {
+mutation createBook($title: String!, $text: String!, $category: String!, $authorId: ID!) {
+    createBook(bookDto: {title: $title, text: $text, category: $category, authorId: $authorId}) {
         id
         title
         text

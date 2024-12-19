@@ -1,6 +1,8 @@
 # ====================================================================
 # Types
 # ====================================================================
+
+# Output type --------------------------------------------------
 type Book {
     id: ID!
     title: String!
@@ -24,16 +26,30 @@ type Review {
     book: Book!
 }
 
+# input type ---------------------------------------------------
+input BookDto {
+    title: String!
+    text: String!
+    category: String
+    authorId: ID!
+}
+
+input ReviewDto {
+    text: String!
+    createdBy: String!
+    bookId: Float!
+}
+
 # ====================================================================
 # Mutations
 # ====================================================================
 type Mutation {
-    # Books ---------------------------------------------------
+    # Books ----------------------------------------------------
     """
     - Description : Mutation for create a book
     - Return : The book created
     """
-    createBook(title: String!, text: String!, category: String, authorId: Int!): Book!
+    createBook(bookDto: BookDto!): Book!
 
     """
     - Description : Mutation for delete book by id
@@ -41,26 +57,26 @@ type Mutation {
     """
     deleteBook(bookId: ID!): Book!
 
-    # Reviews ---------------------------------------------------
+    # Reviews --------------------------------------------------
     """
     - Description : Mutation for create a review
     - Return : The review created
     """
-    createReview(text: String!, createdBy: String!, bookId: ID!): Review!
+    createReview(reviewDto: ReviewDto!): Review!
 }
 
 # ====================================================================
 # Queries
 # ====================================================================
 type Query {
-    # Books ---------------------------------------------------
+    # Books ----------------------------------------------------
     """
     - Description : Query to find all books
     - Return : All books find
     """
     getBooks(limit: Int, offset: Int): [Book]
 
-    # Authors -------------------------------------------------
+    # Authors --------------------------------------------------
     """
     - Description : Query to find all authors
     - Return : All authors find
