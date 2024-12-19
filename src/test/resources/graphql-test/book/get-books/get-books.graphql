@@ -1,13 +1,19 @@
-query getBooks($limit: Int!, $offset: Int!) {
+query getBooks($limit: Int, $offset: Int) {
     getBooks(limit: $limit, offset: $offset) {
         id
         title
         text
         category
+        createdDate
         author {
             id
             firstname
             lastname
+        }
+        reviews {
+            id
+            text
+            createdBy
         }
     }
 }

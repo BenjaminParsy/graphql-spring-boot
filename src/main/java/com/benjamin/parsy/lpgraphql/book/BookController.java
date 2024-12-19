@@ -19,6 +19,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class BookController {
 
     @QueryMapping
     public List<Book> getBooks(@Argument Integer limit, @Argument Integer offset) {
-        return bookService.findAllWithLimitAndOffset(limit, offset);
+        return new LinkedList<>(bookService.findAllWithLimitAndOffset(limit, offset));
     }
 
     @BatchMapping

@@ -8,6 +8,7 @@ type Book {
     title: String!
     text: String!
     category: String
+    createdDate: String!
     author: Author!
     reviews: [Review]
 }
@@ -37,7 +38,7 @@ input BookDto {
 input ReviewDto {
     text: String!
     createdBy: String!
-    bookId: Float!
+    bookId: ID!
 }
 
 # ====================================================================

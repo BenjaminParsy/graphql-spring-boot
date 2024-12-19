@@ -1,0 +1,60 @@
+[
+  {
+    "id": "1",
+    "title": "title_1",
+    "text": "text_1",
+    "category": "novel",
+    "createdDate": "2024-12-17T00:00",
+    "author": {
+      "id": "1",
+      "firstname": "Jean",
+      "lastname": "Dujardin"
+    },
+    "reviews": [
+      {
+        "id": "1",
+        "text": "Comment number 1",
+        "createdBy": "Benjamin"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "title_2",
+    "text": "text_2",
+    "category": "novel",
+    "createdDate": "2024-12-18T00:00",
+    "author": {
+      "id": "1",
+      "firstname": "Jean",
+      "lastname": "Dujardin"
+    },
+    "reviews": null
+  },
+  {
+    "id": "3",
+    "title": "title_3",
+    "text": "text_3",
+    "category": "novel",
+    "createdDate": "2024-12-19T00:00",
+    "author": {
+      "id": "2",
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "reviews": null
+  },
+  {
+    "id": "4",
+    "title": "title_4",
+    "text": "text_4",
+    "category": "novel",
+    "createdDate": "2024-12-20T00:00",
+    "author": {
+      "id": "2",
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "reviews": null
+  }
+]

@@ -6,10 +6,9 @@ import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -24,9 +23,8 @@ public class AuthorController {
     }
 
     @QueryMapping
-    public Set<Author> getAuthors() {
-        List<Author> authorList = authorService.findAll();
-        return new HashSet<>(authorList);
+    public List<Author> getAuthors() {
+        return new LinkedList<>(authorService.findAll());
     }
 
     @BatchMapping
@@ -39,8 +37,7 @@ public class AuthorController {
 
         List<Book> bookList = bookService.findAllByAuthorIdIn(authorIdList);
 
-        return bookList.stream()
-                .collect(Collectors.groupingBy(Book::getAuthor));
+        return bookList.stream().collect(Collectors.groupingBy(Book::getAuthor));
     }
 
 }

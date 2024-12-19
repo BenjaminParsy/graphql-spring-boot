@@ -1,10 +1,14 @@
 query getAuthors {
     getAuthors {
+        id
         firstname
         lastname
         books {
+            id
             title
             text
+            category
+            createdDate
         }
     }
 }

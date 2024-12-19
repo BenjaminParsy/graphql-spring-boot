@@ -3,20 +3,20 @@ DELETE FROM review;
 DELETE FROM book;
 DELETE FROM author;
 
-INSERT INTO author (firstname, lastname) VALUES ('Jean', 'Dujardin');
-INSERT INTO author (firstname, lastname) VALUES ('Jane', 'Doe');
+INSERT INTO author (id, firstname, lastname) VALUES (1, 'Jean', 'Dujardin');
+INSERT INTO author (id, firstname, lastname) VALUES (2, 'Jane', 'Doe');
 
-INSERT INTO book (title, text, category, created_date, author_id)
-    SELECT 'title_1', 'text_1', 'novel', '2024-12-17', id from author a where a.firstname = 'Jean';
+INSERT INTO book (id, title, text, category, created_date, author_id)
+VALUES (1, 'title_1', 'text_1', 'novel', '2024-12-17', 1);
 
-INSERT INTO book (title, text, category, created_date, author_id)
-    SELECT 'title_2', 'text_2', 'novel', '2024-12-18', id from author a where a.firstname = 'Jean';
+INSERT INTO book (id, title, text, category, created_date, author_id)
+VALUES (2, 'title_2', 'text_2', 'novel', '2024-12-18', 1);
 
-INSERT INTO book (title, text, category, created_date, author_id)
-    SELECT 'title_3', 'text_3', 'novel', '2024-12-19', id from author a where a.firstname = 'Jane';
+INSERT INTO book (id, title, text, category, created_date, author_id)
+VALUES (3, 'title_3', 'text_3', 'novel', '2024-12-19', 2);
 
-INSERT INTO book (title, text, category, created_date, author_id)
-    SELECT 'title_4', 'text_4', 'novel', '2024-12-20', id from author a where a.firstname = 'Jane';
+INSERT INTO book (id, title, text, category, created_date, author_id)
+VALUES (4, 'title_4', 'text_4', 'novel', '2024-12-20', 2);
 
-INSERT INTO review (text, created_by, book_id)
-    SELECT 'Comment number 1', 'Benjamin', id from book b where b.title = 'title_1';
+INSERT INTO review (id, text, created_by, book_id)
+VALUES (1, 'Comment number 1', 'Benjamin', 1);

@@ -1,0 +1,7 @@
+mutation createReview($createdBy: String!, $text: String!, $bookId: ID!) {
+    createReview(reviewDto: {createdBy: $createdBy, text: $text, bookId: $bookId}) {
+        id
+        text
+        createdBy
+    }
+}

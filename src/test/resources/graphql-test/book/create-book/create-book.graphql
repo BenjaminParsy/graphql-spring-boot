@@ -4,10 +4,16 @@ mutation createBook($title: String!, $text: String!, $category: String!, $author
         title
         text
         category
+        createdDate
         author {
             id
             firstname
             lastname
+        }
+        reviews {
+            id
+            text
+            createdBy
         }
     }
 }

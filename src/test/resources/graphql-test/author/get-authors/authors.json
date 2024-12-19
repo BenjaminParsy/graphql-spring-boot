@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "firstname": "Jean",
+    "lastname": "Dujardin",
+    "books": [
+      {
+        "id": "1",
+        "title": "title_1",
+        "text": "text_1",
+        "category": "novel",
+        "createdDate": "2024-12-17T00:00"
+      },
+      {
+        "id": "2",
+        "title": "title_2",
+        "text": "text_2",
+        "category": "novel",
+        "createdDate": "2024-12-18T00:00"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "firstname": "Jane",
+    "lastname": "Doe",
+    "books": [
+      {
+        "id": "3",
+        "title": "title_3",
+        "text": "text_3",
+        "category": "novel",
+        "createdDate": "2024-12-19T00:00"
+      },
+      {
+        "id": "4",
+        "title": "title_4",
+        "text": "text_4",
+        "category": "novel",
+        "createdDate": "2024-12-20T00:00"
+      }
+    ]
+  }
+]

@@ -1,14 +1,10 @@
 package com.benjamin.parsy.lpgraphql.book;
 
 import com.benjamin.parsy.lpgraphql.author.Author;
-import com.benjamin.parsy.lpgraphql.review.Review;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
