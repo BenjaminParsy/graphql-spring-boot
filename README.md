@@ -20,7 +20,7 @@ This project is a sample application to learn and explore the use of GraphQL wit
 1. Clone the project:
 
    ```bash
-   git clone https://gitlab.com/learning-projects10/lp-graphql.git
+   git clone https://github.com/benjaminparsy/graphql-spring-boot.git
    ```
 
 2. Compile and run the application:
